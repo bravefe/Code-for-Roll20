@@ -8,26 +8,26 @@ on('chat:message', function(msg) {
         }
 
         if (roll === 2) {
-            sendChat("Deck", `<img src="https://raw.githubusercontent.com/bravefe/Code-for-Roll20/refs/heads/main/deck_png/roll-1.gif?token=GHSAT0AAAAAADWWP4XRNBBTV7SYSEQ27FG62NNJKRQ">`);
+            sendChat("Deck", `<img src="https://github.com/bravefe/Code-for-Roll20/blob/main/deck_png/LegendsofRuneterra-VolibearLevel-UpAnimation-ezgif.com-speed.gif?raw=true">`);
         }
         if (roll === 3) {
-            sendChat("Deck", `<img src="https://raw.githubusercontent.com/bravefe/Code-for-Roll20/refs/heads/main/deck_png/roll-1.gif?token=GHSAT0AAAAAADWWP4XRNBBTV7SYSEQ27FG62NNJKRQ">`);
+            sendChat("Deck", `<img src="https://github.com/bravefe/Code-for-Roll20/blob/main/deck_png/LegendsofRuneterra-VolibearLevel-UpAnimation-ezgif.com-speed.gif?raw=true">`);
         }
 
         if (roll === 4) {
-            sendChat("Deck", `<img src="https://raw.githubusercontent.com/bravefe/Code-for-Roll20/refs/heads/main/deck_png/roll-1.gif?token=GHSAT0AAAAAADWWP4XRNBBTV7SYSEQ27FG62NNJKRQ">`);
+            sendChat("Deck", `<img src="https://github.com/bravefe/Code-for-Roll20/blob/main/deck_png/LegendsofRuneterra-VolibearLevel-UpAnimation-ezgif.com-speed.gif?raw=true">`);
         }
 
         if (roll === 5) {
-            sendChat("Deck", `<img src="https://raw.githubusercontent.com/bravefe/Code-for-Roll20/refs/heads/main/deck_png/roll-1.gif?token=GHSAT0AAAAAADWWP4XRNBBTV7SYSEQ27FG62NNJKRQ">`);
+            sendChat("Deck", `<img src="https://github.com/bravefe/Code-for-Roll20/blob/main/deck_png/LegendsofRuneterra-VolibearLevel-UpAnimation-ezgif.com-speed.gif?raw=true">`);
         }
 
         if (roll === 6) {
-            sendChat("Deck", `<img src="https://raw.githubusercontent.com/bravefe/Code-for-Roll20/refs/heads/main/deck_png/roll-1.gif?token=GHSAT0AAAAAADWWP4XRNBBTV7SYSEQ27FG62NNJKRQ">`);
+            sendChat("Deck", `<img src="https://github.com/bravefe/Code-for-Roll20/blob/main/deck_png/LegendsofRuneterra-VolibearLevel-UpAnimation-ezgif.com-speed.gif?raw=true">`);
         }
 
         if (roll === 7) {
-            sendChat("Deck", `<img src="https://raw.githubusercontent.com/bravefe/Code-for-Roll20/refs/heads/main/deck_png/roll-1.gif?token=GHSAT0AAAAAADWWP4XRNBBTV7SYSEQ27FG62NNJKRQ">`);
+            sendChat("Deck", `<img src="https://github.com/bravefe/Code-for-Roll20/blob/main/deck_png/LegendsofRuneterra-VolibearLevel-UpAnimation-ezgif.com-speed.gif?raw=true">`);
         }
 
         if (roll === 8) {
