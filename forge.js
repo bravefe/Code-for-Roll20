@@ -44,55 +44,38 @@ function forge(msg, price, buff, upgradeStage) {
     const roll = getRandom1to20();
     const adjustedRoll = roll + buffNum;
 
-    let output = `<div style="
-    background-image:url('https://i.pinimg.com/736x/9e/f8/c2/9ef8c28abb561672763fd797db50077b.jpg');
-    background-size:cover;
-    background-position:center;
-    color:white;
-    text-align:center;
-    border-radius:8px;
-    padding:20px;
-    margin:0;
-    font-family:serif;
-    ">`;
-
-    output += `<h3 style="font-size:24px; margin:0; padding-top:10px;">Forge +${stage} → +${stage + 1}</h3>`;
-
-    output += `<div style="padding:12px; margin:10px; background:rgba(0,0,0,0.55); border-radius:6px;">`;
-    output += `<div style="font-size:14px;">Cost: ${userPrice + fixPrice} GP</div>`;
-    output += `<div style="font-size:14px;">Total Spent: ${moneySumForge} GP</div>`;
-    output += `<div style="font-size:14px;">Material: ${(stage+1) *10} GP</div>`;
-    output += `<div style="font-size:14px;">Total Material Spent: ${materialSumForge} GP</div>`;
+    let output = `<div style="background-color: #34495e; color: white; text-align:center; border-radius: 8px; padding: 0; margin: 0;">`;
+    output += `<h3 style="font-size:24px; padding-top:16px; margin: 0; border-bottom: 2px solid #2c3e50; padding-bottom: 8px;">Forge +${stage} → +${stage + 1} </h3>`;
+    output += `<div style="padding: 12px; background-color: #2c3e50; margin: 8px; border-radius: 4px;">`;
+    output += `<div style="font-size: 14px; color: #ecf0f1;">Cost: ${userPrice + fixPrice} GP</div>`;
+    output += `<div style="font-size: 14px; color: #ecf0f1;">Total Spent: ${moneySumForge} GP</div>`;
+    output += `<div style="font-size: 14px; color: #ecf0f1;">Material: ${(stage+1) *10} GP</div>`;
+    output += `<div style="font-size: 14px; color: #ecf0f1;">Total Material Spent: ${materialSumForge} GP</div>`;
+    output += `</div>`;
+    
+    output += `<div style="font-size:36px;padding:16px; padding-bottom:16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 8px; border-radius: 4px;"><strong>${roll}</strong> + ${buff} = <strong>${adjustedRoll}</strong><br></div>`;
+    
+    output += `<div style="padding: 8px; font-size: 14px;">`;
+    output += `Success Chance: <strong>${chance}</strong>`;
     output += `</div>`;
 
-    output += `<div style="
-    font-size:36px;
-    padding:16px;
-    margin:10px;
-    background:rgba(0,0,0,0.6);
-    border-radius:6px;
-    "><strong>${roll}</strong> + ${buff} = <strong>${adjustedRoll}</strong></div>`;
-
-    output += `<div style="padding:8px; font-size:14px;">Success Chance: <strong>${chance}</strong></div>`;
-
     if (adjustedRoll >= chance) {
-        output += `<div style="background:rgba(39,174,96,0.85); padding:12px; margin:8px; border-radius:6px;">`;
+        output += `<div style="background-color: #27ae60; padding: 12px; margin: 8px; border-radius: 4px;">`;
         output += `<strong>✓ SUCCESS! ${adjustedRoll} >= ${chance}</strong><br>Forged to +${stage + 1}`;
         output += `</div>`;
-        output += `<div style="padding:12px;">`;
+        output += `<div style="padding: 12px;">`;
         output += `[CONTINUE](!forge ${price} ${buff} ${stage + 1} continue) [STOP](!&#13;FORGE +${stage + 1}. TOTAL ${moneySumForge} GP. MATERIAL ${materialSumForge})`;
         output += `</div>`;
     } else {
         const newStage = stage == 0 ? 0 : stage;
-        output += `<div style="background:rgba(192,57,43,0.9); padding:12px; margin:8px; border-radius:6px;">`;
+        output += `<div style="background-color: #c0392b; padding: 12px; margin: 8px; border-radius: 4px;">`;
         output += `<strong>✗ FAILED! ${adjustedRoll} < ${chance}</strong><br>Downgraded to +${newStage}`;
         output += `</div>`;
-        output += `<div style="padding:12px;">`;
+        output += `<div style="padding: 12px;">`;
         output += `[CONTINUE](!forge ${price} ${buff} ${newStage} continue) [STOP](!&#13;FORGE +${newStage}. TOTAL ${moneySumForge} GP. MATERIAL ${materialSumForge})`;
         output += `</div>`;
     }
-
-    output += `</div>`;
+    output += `</div></div>`;
     
     sendChat(speaker, output);
 }
@@ -108,7 +91,7 @@ on('ready', function() {
             if (!continueUpgrade) {
                 moneySumForge = 0;
                 const speaker = getSpeaker(msg);
-                sendChat(speaker, `<div style="text-align:center; font-size:20px; font-weight:bold; padding:16px; background-color:#c0392b; color:white; border-radius:8px;"> ${speaker}'s Upgrade Session </div>`);
+                sendChat(speaker, `<div style="text-align:center; font-size:20px; font-weight:bold; padding:16px; background-color:#3498db; color:white; border-radius:8px;"> ${speaker}'s Upgrade Session </div>`);
             }
             if (!price || !buff || !upgradeStage) {
                 sendChat(getSpeaker(msg), "Error: Missing parameters. Usage: !upgrade [basePrice] [buff] [startStage]");
