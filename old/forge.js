@@ -44,9 +44,9 @@ function forge(msg, price, buff, upgradeStage) {
     const roll = getRandom1to20();
     const adjustedRoll = roll + buffNum;
 
-    let output = `<div style="background-color: #34495e; color: white; text-align:center; border-radius: 8px; padding: 0; margin: 0;">`;
-    output += `<h3 style="font-size:24px; padding-top:16px; margin: 0; border-bottom: 2px solid #2c3e50; padding-bottom: 8px;">Forge +${stage} → +${stage + 1} </h3>`;
-    output += `<div style="padding: 12px; background-color: #2c3e50; margin: 8px; border-radius: 4px;">`;
+    let output = `<div style="background-color: #5e3434; color: white; text-align:center; border-radius: 8px; padding: 0; margin: 0;">`;
+    output += `<h3 style="font-size:24px; padding-top:16px; margin: 0; border-bottom: 2px solid #502c2c; padding-bottom: 8px;">Forge +${stage} → +${stage + 1} </h3>`;
+    output += `<div style="padding: 12px; background-color: #502c2c; margin: 8px; border-radius: 4px;">`;
     output += `<div style="font-size: 14px; color: #ecf0f1;">Cost: ${userPrice + fixPrice} GP</div>`;
     output += `<div style="font-size: 14px; color: #ecf0f1;">Total Spent: ${moneySumForge} GP</div>`;
     output += `<div style="font-size: 14px; color: #ecf0f1;">Material: ${(stage+1) *10} GP</div>`;
