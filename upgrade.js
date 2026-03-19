@@ -124,85 +124,13 @@ function autoUpgrade(msg, price, buff, upgradeStage, weaponRarity) {
     sendChat(speaker, output);
 }
 
-function upgradeSafeRoll(msg, price, buff, upgradeStage, weaponRarity) {
-    const stage = Number(upgradeStage);
-    const speaker = getSpeaker(msg);
-    
-    let output = `<div class="sheet-rolltemplate-traits">`;
-    output += `<div class="sheet-container" style="background-color: #2c3e50; color: white; text-align:center; border-radius: 8px; padding: 16px;">`;
-    output += `<h3 style="margin: 0 0 16px 0;">Safe Roll Required</h3>`;
-    output += `<div style="margin-bottom: 12px;">Roll 1d20 manually, then select:</div>`;
-    output += `<div style="background-color: #34495e; padding: 12px; border-radius: 4px;">`;
-    output += `[20 - Stay](!upgrade ${price} ${buff} ${stage} ${weaponRarity} continue)<br>`;
-    output += `[2-19 - Down 1](!upgrade ${price} ${buff} ${stage - 1} ${weaponRarity} continue)<br>`;
-    output += `[1 - Down 2](!upgrade ${price} ${buff} ${stage - 2} ${weaponRarity} continue)`;
-    output += `</div></div>`;
-    
-    sendChat(speaker, output);
-    sendChat(speaker, `/roll 1d20`);
-}
-
-function upgrade(msg, price, buff, upgradeStage, weaponRarity) {
-    const userPrice = Number(price);
-    const stage = Number(upgradeStage);
-    const speaker = getSpeaker(msg);
-    
-    if (stage < 0 || stage >= upgradePrices.length) {
-        sendChat(speaker, `Upgrade stopped: invalid stage (${stage}).`);
-        return;
-    }
-    const fixPrice = upgradePrices[stage] || 0;
-    moneySum += userPrice + fixPrice;
-    const chance = getChance(stage, weaponRarity);
-
-    let output = `<div style="background-color: #34495e; color: white; text-align:center; border-radius: 8px; padding: 0; margin: 0;">`;
-    output += `<h3 style="padding-top:16px; margin: 0; border-bottom: 2px solid #2c3e50; padding-bottom: 8px;">Manual Upgrade</h3>`;
-    output += `<div style="padding: 12px; background-color: #2c3e50; margin: 8px; border-radius: 4px;">`;
-    output += `<div style="font-size: 18px; margin-bottom: 8px;">+${stage} → +${stage + 1}</div>`;
-    output += `<div style="font-size: 14px; color: #ecf0f1;">Cost: ${userPrice + fixPrice} GP</div>`;
-    output += `<div style="font-size: 14px; color: #ecf0f1;">Total Spent: ${moneySum} GP</div>`;
-    output += `<div style="font-size: 14px; color: #ecf0f1; margin-top: 8px;">Success Chance: <strong>${chance}%</strong></div>`;
-    output += `</div>`;
-    
-    output += `<div style="padding: 12px; background-color: #2c3e50; margin: 8px; border-radius: 4px;">`;
-    output += `Roll 1d100 - ${buff}, then select:`;
-    output += `</div>`;
-    
-    output += `<div style="padding: 12px;">`;
-    output += `[Success](!upgrade ${price} ${buff} ${stage + 1} ${weaponRarity} continue)<br>`;
-    output += `[Fail](!upgrade ${price} ${buff} ${stage - 1} ${weaponRarity} continue)<br>`;
-    output += `[Fail - Safe Roll](!upgradesafe ${price} ${buff} ${stage} ${weaponRarity} continue)`;
-    output += `</div>`;
-    output += `</div></div>`;
-    
-    sendChat(speaker, output);
-    sendChat(speaker, `/roll 1d100 - ${buff}`);
-}
-
 on('ready', function() {
     on("chat:message", msg => {
         if (msg.type !== 'api' || !msg.content.startsWith('!')) return;
 
         let [command, price, buff, upgradeStage, weaponRarity, continueUpgrade] = msg.content.split(" ");
 
-        if (command === '!upgrade') {
-            if (!continueUpgrade) {
-                moneySum = 0;
-                const speaker = getSpeaker(msg);
-                sendChat(speaker, `<div style="text-align:center; font-size:20px; font-weight:bold; padding:16px; background-color:#3498db; color:white; border-radius:8px;"> ${speaker}'s Upgrade Session </div>`);
-            }
-            if (!price || !buff || !upgradeStage) {
-                sendChat(getSpeaker(msg), "Error: Missing parameters. Usage: !upgrade [basePrice] [buff] [startStage] [weaponRarity]");
-                return;
-            }
-            upgrade(msg, price, buff, upgradeStage, weaponRarity);
-        } else if (command === '!upgradesafe') {
-            if (!price || !buff || !upgradeStage) {
-                sendChat(getSpeaker(msg), "Error: Missing parameters. Usage: !upgradesafe [basePrice] [buff] [currentStage] [weaponRarity]");
-                return;
-            }
-            upgradeSafeRoll(msg, price, buff, upgradeStage, weaponRarity);
-        } else if (command === '!autoupgrade') {
+        if (command === '!autoupgrade' || command === '!upgrade') {
             if (!continueUpgrade) {
                 moneySum = 0;
                 const speaker = getSpeaker(msg);
@@ -213,7 +141,7 @@ on('ready', function() {
                 return;
             }
             autoUpgrade(msg, price, buff, upgradeStage, weaponRarity);
-        } else if (command === '!autoupgradesaferoll') { 
+        } else if (command === '!autoupgradesaferoll' || command === '!upgradesaferoll') { 
             if (!price || !buff || !upgradeStage) {
                 sendChat(getSpeaker(msg), "Error: Missing parameters. Usage: !autoupgradesaferoll [basePrice] [buff] [currentStage] [weaponRarity]");
                 return;
@@ -238,23 +166,10 @@ const upgradePricesForge = [
 
 const upgradeChancesForge = [10,13,15,16,18];
 
-// function getRandom1to20() {
-//     return Math.floor(Math.random() * 20) + 1;
-// }
-
 function getChanceForge(stage) {
     if (!upgradeChancesForge[stage]) return 0;
     return upgradeChancesForge[stage] || 0;
 }
-
-// function getSpeaker(msg) {
-//     let speaker = msg.who;
-//     const character = getObj('character', msg.playerid);
-//     if (character) {
-//         speaker = character.get('name');
-//     }
-//     return speaker;
-// }
 
 function forge(msg, price, buff, upgradeStage) {
     const userPrice = Number(price);
@@ -328,7 +243,7 @@ on('ready', function() {
                 sendChat(speaker, `<div style="text-align:center; font-size:20px; font-weight:bold; padding:16px; background-color:#3498db; color:white; border-radius:8px;"> ${speaker}'s Upgrade Session </div>`);
             }
             if (!price || !buff || !upgradeStage) {
-                sendChat(getSpeaker(msg), "Error: Missing parameters. Usage: !upgrade [basePrice] [buff] [startStage]");
+                sendChat(getSpeaker(msg), "Error: Missing parameters. Usage: !forge [basePrice] [buff] [startStage]");
                 return;
             }
             forge(msg, price, buff, upgradeStage);
