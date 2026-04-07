@@ -239,8 +239,9 @@ on('ready', function() {
         if (command === '!forge') {
             if (!continueUpgrade) {
                 moneySumForge = 0;
+                materialSumForge = 0;
                 const speaker = getSpeaker(msg);
-                sendChat(speaker, `<div style="text-align:center; font-size:20px; font-weight:bold; padding:16px; background-color:#3498db; color:white; border-radius:8px;"> ${speaker}'s Upgrade Session </div>`);
+                sendChat(speaker, `<div style="text-align:center; font-size:20px; font-weight:bold; padding:16px; background-color:#3498db; color:white; border-radius:8px;"> ${speaker}'s Forge Session </div>`);
             }
             if (!price || !buff || !upgradeStage) {
                 sendChat(getSpeaker(msg), "Error: Missing parameters. Usage: !forge [basePrice] [buff] [startStage]");
