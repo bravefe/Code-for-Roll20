@@ -217,7 +217,7 @@ function forge(msg, price, buff, upgradeStage) {
     } else {
         const newStage = stage == 0 ? 0 : stage;
         output += `<div style="background-color: #c0392b; padding: 12px; margin: 8px; border-radius: 4px; font-family: 'Times New Roman', Times, serif;">`;
-        output += `<strong>✗ FAILED! ${adjustedRoll} < ${chance}</strong><br>Downgraded to +${newStage}`;
+        output += `<strong>✗ FAILED! ${adjustedRoll} < ${chance}</strong><br>Remained at +${newStage}`;
         output += `</div>`;
         output += `<div style="padding: 12px; font-family: 'Times New Roman', Times, serif;">`;
         output += `[CONTINUE](!forge ${price} ${buff} ${newStage} continue) [STOP](!&#13;FORGE +${newStage}. TOTAL ${moneySumForge} GP. MATERIAL ${materialSumForge})`;
